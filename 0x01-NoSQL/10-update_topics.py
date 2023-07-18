@@ -5,10 +5,7 @@ on the name"""
 
 def update_topics(mongo_collection, name, topics):
     """returns updated document"""
-    result = mongo_collection.replace_one(
+    result = mongo_collection.update_many(
             {"name": name},
-            {
-                "name": name,
-                "topics": topics,
-            })
+            {"$set": {"topics": topics}})
     return result

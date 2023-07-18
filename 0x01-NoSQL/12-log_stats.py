@@ -6,21 +6,20 @@ logs stored in mongodb"""
 from pymongo import MongoClient
 
 
+def count_logs(a: dict) -> int:
+    """returns number of logs"""
+    client = MongoClient("mongodb://127.0.0.1:27017")
+    logs = client.logs.nginx
+    return logs.count_documents(a)
+
 if __name__ == "__main__":
     """database: logs, collection: nginx"""
 
-    client = MongoClient("mongodb://127.0.0.1:27017")
-    logs = client.logs.nginx
-
-    num_logs = logs.count_documents({})
-    print(f'{num_logs} logs')
-
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    print(f"{count_logs({})} logs")
     print("Methods:")
-    for method in methods:
-        count = logs.count_documents({"method": method})
-        print(f'\tmethod {method}:{count}')
-
-    status = logs.count_documents(
-            {"method": "GET", "path": "/status"})
-    print(f'{status} status check')
+    print(f"\tmethod GET: {count_logs({'method': 'GET'})}")
+    print(f"\tmethod POST: {count_logs({'method': 'POST'})}")
+    print(f"\tmethod PUT: {count_logs({'method': 'PUT'})}")
+    print(f"\tmethod PATCH: {count_logs({'method': 'PATCH'})}")
+    print(f"\tmethod DELETE: {count_logs({'method': 'DELETE'})}")
+    print(f"{count_logs({'method': 'GET', 'path': '/status'})} status check")

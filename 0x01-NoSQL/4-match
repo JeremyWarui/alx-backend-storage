@@ -1,3 +1,2 @@
 // show one matching document
-db.school.find({name:"Holberton School"})
-
+db.school.find({name:"Holberton school"})

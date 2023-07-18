@@ -9,7 +9,7 @@ from pymongo import MongoClient
 if __name__ == "__main__":
     """database: logs, collection: nginx"""
 
-    client = MongoClient(host="localhost", port=27017)
+    client = MongoClient("mongodb://127.0.0.1:27017")
     nginx_coll = client.logs.nginx
 
     num_logs = nginx_coll.count_documents({})
